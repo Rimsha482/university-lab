@@ -1,0 +1,27 @@
+# Apache Configuration for Smart University Exam Portal
+
+# 1. Disable Directory Listing
+Options -Indexes
+
+# 2. Prevent Access to Hidden / Sensitive Files (.git, .env, .htaccess)
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# 3. Protect Database Configuration and Backups from Direct Web Downloads
+<FilesMatch "\.(sql|bak|config|env|log)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# 4. Default Charset UTF-8
+AddDefaultCharset UTF-8
+
+# 5. Security Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
